@@ -1,0 +1,164 @@
+<h4>Formularios <small> tipo </small></h4>
+<hr>
+<form autocomplete="off"  (ngSubmit)="save()" [formGroup] = "form">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Name</label>
+      <div class="col">
+
+        <input class="form-control"
+               type="text"
+               [class.is-invalid]="invalidName"
+               formControlName="name"
+               placeholder="Name">
+        <small class="text-danger" *ngIf="invalidName">Name is required</small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Surname</label>
+      <div class="col">
+
+        <input class="form-control"
+               type="text"
+               [class.is-invalid]="invalidSurname"
+               formControlName="surname"
+               placeholder="Surname">
+        <small class="text-danger" *ngIf="invalidSurname" >Surname is required</small>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Email</label>
+    <div class="col">
+
+      <input class="form-control"
+             type="email"
+             [class.is-invalid]="invalidEmail"
+             formControlName="email"
+             placeholder="Email">
+        <small class="text-danger" *ngIf="invalidEmail">Invalid email</small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Password</label>
+    <div class="col">
+
+      <input class="form-control"
+             type="password"
+             formControlName="password1"
+             [class.is-invalid] = "invalidPassword1"
+             placeholder="Contraseña">
+        <small  *ngIf="invalidPassword1"
+                class="text-danger">Password required</small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Repeat password</label>
+    <div class="col">
+
+      <input class="form-control"
+             type="password"
+             [class.is-invalid]="invalidPassword2"
+             formControlName="password2"
+             placeholder="Password">
+    </div>
+  </div>
+
+  <div class="form-group row" formGroupName="address">
+    <label class="col-2 col-form-label">Address</label>
+    <div class="col">
+      <input type="text"
+             formControlName="district"
+             [class.is-invalid]="invalidDistrict"
+             placeholder="District"
+             class="form-control">
+        <small class="text-danger"
+              *ngIf="invalidDistrict" >District is required</small>
+
+    </div>
+
+    <div class="col">
+      <input type="text"
+              formControlName="city"
+              [class.is-invalid]="invalidCity"
+              placeholder="City"
+              class="form-control">
+        <small class="text-danger"
+              *ngIf="invalidCity" >City is required</small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col">
+      <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Hobbie</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="hobbies">
+
+          <tr *ngFor="let hobbie of hobbies.controls; let i = index">
+            <td scope="row">{{i + 1 }}</td>
+            <td>
+              <div class="form-group">
+              <input type="text"
+                     class="form-control"
+                     name=""
+                     id=""
+                     [formControlName]="i"
+                     placeholder="" >
+            </div>
+          </td>
+            <td>
+              <button type="button"
+                       name=""
+                       class="btn btn-danger"
+                       (click)="deleteHobbieControl(i)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button"
+               name="" id=""
+               class="btn btn-primary btn-block"
+               (click)="addHobbieControl()">+ Add</button>
+    </div>
+  </div>
+
+</form>
+
+<hr>
+
+<pre>
+  Estado del formulario {{form.valid}}
+  <br>
+  Status: {{form.status}}
+</pre>
+
+<pre>
+  {{form.value | json}}
+</pre>
+
+

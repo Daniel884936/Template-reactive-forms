@@ -1,0 +1,121 @@
+<h4>Formularios <small> tipo </small></h4>
+<hr>
+<form autocomplete="off" #form = "ngForm" (ngSubmit) ="submit(form)">
+
+  <div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               name="name"
+               [class.is-invalid]="name.invalid && name.touched"
+               required
+               minlength="5"
+               #name = "ngModel"
+               [ngModel]="user.name"
+               placeholder="Nombre">
+               <small *ngIf="name.invalid && name.touched" class="form-text text-danger">Name is requeired</small>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               name="surname"
+               [class.is-invalid]="surname.invalid && surname.touched"
+               [ngModel] ="user.surname"
+               #surname = "ngModel"
+               required
+               placeholder="Apellido">
+               <small *ngIf="surname.invalid && surname.touched" class="form-text text-danger">Surname is requeired</small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Correo</label>
+    <div class="col-8">
+
+      <input class="form-control"
+             type="email"
+             name="emial"
+             [class.is-invalid]="email.invalid && email.touched"
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             required
+             [ngModel] ="user.email"
+             #email = "ngModel"
+             placeholder="Correo electrónico">
+             <small *ngIf="email.invalid && email.touched" class="form-text text-danger">Invalid emial</small>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Nombre</label>
+    <div class="col-8">
+      <select class="form-control"
+              name="contry"
+              #contry = 'ngModel'
+              required
+              [class.is-invalid]="contry.invalid && contry.touched"
+              [disabled]="contries.length ===0 || !contries"
+              [ngModel]="user.contry">
+        <option *ngFor="let contry of contries"
+              [value]="contry.code">
+              {{contry.name}}</option>
+      </select>
+
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Gender</label>
+    <div class="col-8">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input"
+               [ngModel] = "user.gender"
+               #m ="ngModel"
+               [class.is-invalid]="m.invalid && m.touched"
+               required
+               type="radio"
+               name="gender"
+               value="m"
+               id="inlineRadio1">
+        <label class="form-check-label"  required for="inlineRadio1">Masculino</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input"
+               type="radio"
+               required
+               [ngModel] = "user.gender"
+               [class.is-invalid]="f.invalid && f.touched"
+               #f ="ngModel"
+               name="gender"
+               id="inlineRadio2"
+               value="f">
+        <label class="form-check-label" for="inlineRadio2">Femenino</label>
+      </div>
+      <small *ngIf="(f.invalid && f.touched) || (m.invalid && m.touched)"
+               class="form-text text-danger">
+               Gender is required</small>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button type="submit" class="btn btn-outline-primary btn-block">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
